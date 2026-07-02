@@ -1,0 +1,30 @@
+steps:
+- name: Checkout repository
+  uses: actions/checkout@v4
+  with:
+    fetch-depth: 0
+
+- name: Set up Python
+  uses: actions/setup-python@v4
+  with:
+    python-version: '3.10'
+
+- name: Install dependencies
+  run: |
+    python -m pip install --upgrade pip
+    pip install python-pptx pillow
+
+- name: List files (debug)
+  run: ls -la
+
+- name: Run PPT generation script
+  run: |
+    python ppt_generate.py
+
+- name: Upload PPTX artifact
+  uses: actions/upload-artifact@v4
+  with:
+    name: presentation-pptx
+    path: GutBarrier_IF-MES_Elasticity_Presentation_v1.pptx
+
+    
